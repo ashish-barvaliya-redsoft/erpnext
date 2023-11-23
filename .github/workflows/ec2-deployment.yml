@@ -23,7 +23,7 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
-
+        ssh -vvv -o StrictHostKeyChecking=no $USERNAME@$HOST "echo Connection successful"
         ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << EOF
           cd ~/frappe-bench/apps/erpnext
           git pull
