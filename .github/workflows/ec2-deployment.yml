@@ -1,0 +1,29 @@
+name: EC2 Command Execution
+
+on: [push]
+
+jobs:
+  execute-command:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Execute commands on EC2
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+
+        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << EOF
+          bench get-app https://github.com/ashish-barvaliya-redsoft/erpnext.git
+          sudo kill -9 \$(sudo lsof -t -i:9000)
+          sudo kill -9 \$(sudo lsof -t -i:11000)
+          sudo kill -9 \$(sudo lsof -t -i:13000)
+          bench start
+        EOF
