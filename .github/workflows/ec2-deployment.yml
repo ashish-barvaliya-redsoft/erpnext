@@ -27,6 +27,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << EOF
           cd ~/frappe-bench/apps/erpnext
           git pull
+          node -v
           cd ~/frappe-bench
           sudo kill -9 \$(sudo lsof -t -i:8000)
           sudo kill -9 \$(sudo lsof -t -i:11000)
