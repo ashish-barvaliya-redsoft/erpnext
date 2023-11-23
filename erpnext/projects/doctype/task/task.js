@@ -14,6 +14,7 @@ frappe.ui.form.on("Task", {
 	},
 
 	onload: function (frm) {
+		console.log("onload");
 		frm.set_query("task", "depends_on", function () {
 			let filters = {
 				name: ["!=", frm.doc.name]

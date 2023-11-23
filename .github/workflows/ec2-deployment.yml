@@ -23,9 +23,11 @@ jobs:
         ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << EOF
           cd ~/frappe-bench/apps/erpnext
           git pull
-          sudo kill -9 \$(sudo lsof -t -i:9000)
-          sudo kill -9 \$(sudo lsof -t -i:11000)
-          sudo kill -9 \$(sudo lsof -t -i:13000)
-          cd ~/frappe-bench
-          bench start
         EOF
+
+
+# sudo kill -9 \$(sudo lsof -t -i:9000)
+# sudo kill -9 \$(sudo lsof -t -i:11000)
+# sudo kill -9 \$(sudo lsof -t -i:13000)
+# cd ~/frappe-bench
+# bench start
