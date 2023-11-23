@@ -31,5 +31,6 @@ jobs:
           sudo kill -9 \$(sudo lsof -t -i:8000)
           sudo kill -9 \$(sudo lsof -t -i:11000)
           sudo kill -9 \$(sudo lsof -t -i:13000)
-          nohup bench start &
+          screen
+          bench start
         EOF
