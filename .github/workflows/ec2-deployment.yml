@@ -21,6 +21,7 @@ jobs:
         ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
 
         ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << EOF
+          cd ~/frappe-bench
           bench get-app https://github.com/ashish-barvaliya-redsoft/erpnext.git
           sudo kill -9 \$(sudo lsof -t -i:9000)
           sudo kill -9 \$(sudo lsof -t -i:11000)
